@@ -1,0 +1,29 @@
+<article>
+  <app-bars [animated]="true" />
+
+  <h1 class="name-container">
+    <span>Joshua</span>
+    <span>Hawatta</span>
+  </h1>
+
+  <h2 class="jobs-container">
+    <span class="left-job">
+      <span>Fullstack</span>
+      <span>Developer</span>
+    </span>
+    <span class="right-job">
+      <span>Logo and</span>
+      <span>Brand Designer</span>
+    </span>
+  </h2>
+
+  <img
+    class="photo"
+    alt="Joshua Hawatta photo"
+    ngSrc="images/me.png"
+    [priority]="true"
+    width="1600"
+    height="1600"
+  />
+  <app-cta (click)="goToWorks()" text="Check my work!" />
+</article>

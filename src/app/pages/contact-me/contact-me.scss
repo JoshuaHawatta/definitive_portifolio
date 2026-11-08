@@ -1,0 +1,123 @@
+:host {
+  display: block;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.contact {
+  --u: min(1vw, 1.5vh);
+
+  --bar-h: calc(5.3 * var(--u));
+  --bars-top: calc(12.3 * var(--u));
+  --bars-gap: calc(1.8 * var(--u));
+
+  position: relative;
+  isolation: isolate;
+  height: 100dvh;
+}
+
+h1 {
+  margin: 0;
+  padding: calc(var(--bars-top) - 2.5 * var(--u)) 0 0 calc(2.3 * var(--u));
+  font: 400 calc(8.5 * var(--u)) / calc(var(--bar-h) + var(--bars-gap)) 'title', sans-serif;
+}
+
+h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(2.8 * var(--u)) calc(7 * var(--u));
+  width: calc(80 * var(--u));
+  margin: calc(8.4 * var(--u)) auto 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(13 * var(--u));
+  border-radius: calc(1.2 * var(--u));
+  background: var(--blue-color);
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* same as the CTA */
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  width: calc(3 * var(--u));
+  height: calc(3 * var(--u));
+}
+
+.yellow {
+  background: var(--yellow-color);
+}
+
+.card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+.card:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 #000;
+}
+
+.card h2 {
+  margin: 0;
+  font: 400 calc(4.4 * var(--u)) / 1.1 'title', sans-serif;
+}
+
+.card p {
+  margin: var(--u) 0 0;
+  font: calc(2 * var(--u)) 'regular', serif;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+@media (min-width: 300px) and (max-width: 1024px) and (orientation: portrait) {
+  .contact {
+    --u: min(1vw, 0.5vh);
+    --bar-h: calc(17.5 * var(--u));
+    --bars-top: calc(19 * var(--u));
+    --bars-gap: calc(6.6 * var(--u));
+  }
+
+  h1 {
+    padding: calc(var(--bars-top) - var(--bars-gap) / 2) 0 0;
+    font-size: calc(12 * var(--u));
+    text-align: center;
+  }
+
+  /* Single column, shorter cards than Services (4 of them) */
+  .cards {
+    grid-template-columns: 1fr;
+    gap: calc(5 * var(--u));
+    width: calc(89 * var(--u));
+    margin: calc(10 * var(--u)) auto 0;
+  }
+
+  .card {
+    height: calc(25 * var(--u));
+    border-radius: calc(6 * var(--u));
+  }
+
+  .card h2 { font-size: calc(9 * var(--u)); }
+  .card p  { font-size: calc(4.5 * var(--u)); }
+
+  .icon {
+    width: calc(6 * var(--u));
+    height: calc(6 * var(--u));
+  }
+}

@@ -1,0 +1,49 @@
+<section
+  class="works"
+  (wheel)="onWheel($event)"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)"
+>
+  <div class="track" [style.transform]="'translateY(' + current() * -100 + 'dvh)'">
+    @for (work of works; track work.company; let i = $index) {
+      <article class="work" [class.active]="i === current()">
+        <app-bars [animated]="i === current()" [invertBars]="work.invert" />
+
+        <section class="heading">
+          <h1>{{ work.company }}</h1>
+          <h2>{{ work.role }}</h2>
+        </section>
+
+        <ul>
+          @for (item of work.highlights; track item.title) {
+            <li><b>{{ item.title }}:</b> {{ item.text }}</li>
+          }
+        </ul>
+
+        <footer>
+          <div class="tags">
+            @for (tag of work.stack; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+
+          @if(work.url) {
+            <app-cta [href]="work.url" text="Check this work!" />
+          }
+        </footer>
+      </article>
+    }
+  </div>
+
+  <nav class="indicator" aria-label="Works">
+    @for (work of works; track work.company; let i = $index) {
+      <button
+        type="button"
+        [class.active]="i === current()"
+        [attr.aria-current]="i === current() ? 'true' : null"
+        [attr.aria-label]="'Go to ' + work.company"
+        (click)="go(i)"
+      ></button>
+    }
+  </nav>
+</section>

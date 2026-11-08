@@ -1,0 +1,80 @@
+/* Fixed on top of every screen, so it doesn't affect their 100dvh layout */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20; /* above bars, cards and the works indicator */
+  padding: calc(2.5 * min(1vw, 1.5vh)) calc(3 * min(1vw, 1.5vh)) 0;
+}
+
+/* Links aligned to the right, as in the design */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: calc(2 * min(1vw, 1.5vh));
+}
+
+nav a {
+  font: 400 calc(2 * min(1vw, 1.5vh)) 'title', sans-serif;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+/* Hover and current page get the yellow underline */
+nav a:hover,
+nav a.active {
+  border-color: var(--yellow-color);
+}
+
+.burger {
+  display: none;
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  header { padding: 1.4vw 0 0; }
+
+  .burger {
+    display: block;
+    box-sizing: content-box;
+    width: 12vw;
+    height: 5vw;
+    padding: 0;
+    border: 3vw solid transparent;
+    background:
+      linear-gradient(#000 0 0) top / 100% 2px no-repeat,
+      linear-gradient(#000 0 0) center / 100% 2px no-repeat,
+      linear-gradient(#000 0 0) bottom / 100% 2px no-repeat;
+    background-clip: padding-box;
+    cursor: pointer;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4vw;
+    padding: 4vw 5vw;
+    background: #fff;
+    box-shadow: 0 2vw 4vw rgb(0 0 0 / 0.15);
+
+    a { font-size: 5vw; }
+  }
+
+  nav.open { display: flex; }
+}
+
+@media  (min-width: 701px) and (max-width: 1280px) and (orientation: landscape) {
+  nav {
+
+    justify-content: center;
+
+    a { font-size: 2vw; }
+  }
+}

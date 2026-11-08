@@ -1,0 +1,39 @@
+.bar {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: var(--bar-h, 6rem);
+  top: var(--bars-top, 8rem);
+  z-index: -1;
+}
+
+.blue-bar   { background: var(--blue-color); }
+.yellow-bar { background: var(--yellow-color); }
+
+.bar + .bar {
+  top: calc(var(--bars-top, 8rem) + var(--bar-h, 6rem) + var(--bars-gap, 2rem));
+}
+
+:host(.animated) .bar {
+  animation: fill-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:host(.animated) .blue-bar {
+  transform-origin: left center;
+}
+
+:host(.animated) .yellow-bar {
+  transform-origin: right center;
+  animation-delay: 0.15s;
+}
+
+@keyframes fill-bar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.animated) .bar {
+    animation: none;
+  }
+}

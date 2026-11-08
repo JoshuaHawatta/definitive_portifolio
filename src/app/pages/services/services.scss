@@ -1,0 +1,128 @@
+/* Fills the viewport, no scroll */
+:host {
+  display: block;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.services {
+  /* Base unit: scales the whole layout together */
+  --u: min(1vw, 1.5vh);
+
+  /* Bar geometry (read by <app-bars>) */
+  --bar-h: calc(5.3 * var(--u));
+  --bars-top: calc(12.3 * var(--u));
+  --bars-gap: calc(1.8 * var(--u));
+
+  position: relative;
+  isolation: isolate; /* keeps the bars' z-index: -1 inside this screen */
+  height: 100dvh;
+}
+
+/* Title: each line is as tall as a bar + gap, so it follows the bars */
+h1 {
+  margin: 0;
+  padding: calc(var(--bars-top) - 2.5 * var(--u)) 0 0 calc(2.3 * var(--u));
+  font: 400 calc(8.5 * var(--u)) / calc(var(--bar-h) + var(--bars-gap)) 'title', sans-serif;
+}
+
+h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Two-column grid; the yellow card spans both columns */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(2.4 * var(--u)) calc(7 * var(--u));
+  width: calc(80 * var(--u));
+  margin: calc(9.6 * var(--u)) auto 0;
+}
+
+/* Card: blue, content centered */
+.card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(13 * var(--u));
+  border-radius: calc(1.2 * var(--u));
+  background: var(--blue-color);
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+svg {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  width: calc(2 * var(--u));
+  height: calc(2 * var(--u));
+}
+
+/* Same hover pattern as the CTA */
+.card:hover {
+  transform: translate(calc(0.2 * var(--u)), calc(0.2 * var(--u)));
+  box-shadow: calc(0.5 * var(--u)) calc(0.5 * var(--u)) 0 0 #000;
+}
+
+.card:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 #000;
+}
+
+.yellow {
+  grid-column: 1 / -1;
+  background: var(--yellow-color);
+}
+
+.card h2 {
+  margin: 0;
+  font: 400 calc(4.4 * var(--u)) / 1.1 'title', sans-serif;
+}
+
+.card p {
+  margin: var(--u) 0 0;
+  font: calc(2 * var(--u)) 'regular', serif;
+}
+
+@media (min-width: 300px) and (max-width: 1024px) and (orientation: portrait) {
+  .services {
+    --u: min(1vw, 0.5vh);
+    --bar-h: calc(17.5 * var(--u));
+    --bars-top: calc(19 * var(--u));
+    --bars-gap: calc(6.6 * var(--u));
+  }
+
+  /* Centered text, vertically centered in each bar */
+  h1 {
+    padding: calc(var(--bars-top) - var(--bars-gap) / 2) 0 0;
+    font-size: calc(12 * var(--u));
+    text-align: center;
+  }
+
+  /* Single column of cards */
+  .cards {
+    grid-template-columns: 1fr;
+    gap: calc(8 * var(--u));
+    width: calc(89 * var(--u));
+    margin: calc(19 * var(--u)) auto 0;
+  }
+
+  .card {
+    height: calc(35 * var(--u));
+    border-radius: calc(6 * var(--u));
+  }
+
+  .card h2 { font-size: calc(11 * var(--u)); }
+  .card p  { font-size: calc(4.5 * var(--u)); }
+
+  svg {
+    width: calc(5 * var(--u));
+    height: calc(5 * var(--u));
+  }
+}

@@ -1,0 +1,5 @@
+@if (href(); as link) {
+  <a class="cta" [href]="link" target="_blank" rel="noopener noreferrer">{{ text() }}</a>
+} @else {
+  <button class="cta" type="button">{{ text() }}</button>
+}

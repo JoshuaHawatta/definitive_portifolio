@@ -1,0 +1,11 @@
+<header>
+  <button class="burger" type="button" aria-label="Menu"
+          [attr.aria-expanded]="open()" (click)="open.set(!open())"></button>
+
+  <nav [class.open]="open()" (click)="open.set(false)">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Me</a>
+    <a routerLink="/services" routerLinkActive="active">Services</a>
+    <a routerLink="/works" routerLinkActive="active">Works</a>
+    <a routerLink="/contact-me" routerLinkActive="active">Contact</a>
+  </nav>
+</header>

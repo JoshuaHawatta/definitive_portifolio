@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'title';
+  src: url('./assets/fonts/Alata-Regular.ttf') format('truetype'),
+  url('./assets/fonts/Alata-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'bold';
+  src: url('/assets/fonts/AbhayaLibre-ExtraBold.ttf') format('truetype'),
+  url('./assets/fonts/AbhayaLibre-ExtraBold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'regular';
+  src: url('./assets/fonts/AbhayaLibre-Medium.ttf') format('truetype'),
+  url('/assets/fonts/AbhayaLibre-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  width: 100%;
+  background: var(--white-color);
+}
+
+:root {
+  --yellow-color: #FFB703;
+  --blue-color: #8ECAE6;
+  --white-color: #F5FAFF;
+}

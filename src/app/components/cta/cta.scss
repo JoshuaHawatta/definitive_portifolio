@@ -1,0 +1,51 @@
+.cta {
+  display: inline-block;
+  text-decoration: none;
+  line-height: normal;
+  box-sizing: border-box;
+  background-color: var(--yellow-color, #f4c20d);
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  font-size: 36px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'title', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+.cta:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 #000;
+}
+
+@media (max-width: 700px) {
+  .cta {
+    font-size: 3vw;
+    padding: .5rem .25rem;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) and (orientation: portrait) {
+  .cta {
+    font-size: 3vw;
+    padding: 1.4vw 3.4vw;
+    border-radius: 2vw;
+    white-space: nowrap;
+  }
+}
+
+@media (orientation: landscape) and (max-width: 1280px) {
+  .cta {
+    font-size: 2.5vw;
+    padding: 1.4vw 3.4vw;
+    border-radius: 2vw;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,247 @@
+/* ============ Layout shell ============ */
+
+/* Component fills the viewport and never scrolls */
+:host {
+  display: block;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Scroll is handled by JS, so disable native scrolling and touch gestures */
+.works {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+/* Vertical strip holding all works; slides via inline translateY */
+.track {
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============ Single work (one full screen) ============ */
+
+.work {
+  /* Base unit: scales the whole layout like the Figma frame does */
+  --u: min(1vw, 1.65vh);
+
+  /* Bar geometry (also read by <app-bars>) */
+  --bar-h: calc(5 * var(--u));
+  --bars-top: calc(10.5 * var(--u));
+  --bars-gap: calc(2.9 * var(--u));
+
+  position: relative;
+  isolation: isolate; /* keeps the bars' z-index: -1 inside this section */
+  height: 100dvh;
+  padding: 0 4rem;
+}
+
+/* ============ Heading ============ */
+
+/* Pushes the title down so each line sits on its own bar */
+.heading {
+  padding-top: var(--bars-top);
+}
+
+/* Each line is exactly one bar tall, text centered vertically */
+h1,
+h2 {
+  margin: 0;
+  height: var(--bar-h);
+  line-height: var(--bar-h);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+h1 {
+  font-family: 'title', sans-serif;
+  font-size: calc(7.5 * var(--u));
+  margin-bottom: var(--bars-gap);
+  transform: translateY(calc(-0.7 * var(--u)));
+}
+
+h2 {
+  font-family: 'regular', serif;
+  font-size: calc(3.6 * var(--u));
+}
+
+/* ============ Highlights list ============ */
+
+ul {
+  margin: calc(2.2 * var(--u)) 0 0;
+  padding-left: calc(2.5 * var(--u));
+  max-width: calc(60 * var(--u));
+  font-family: 'regular', serif;
+  font-size: calc(1.8 * var(--u));
+  line-height: 1.5;
+}
+
+/* ============ Footer: stack tags + CTA ============ */
+
+footer {
+  position: absolute;
+  left: 4rem;
+  right: 4rem;
+  bottom: calc(5 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tags {
+  display: flex;
+  gap: calc(0.9 * var(--u));
+}
+
+.tag {
+  padding: calc(0.4 * var(--u)) calc(1.4 * var(--u));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--blue-color) 55%, white);
+  font-family: 'title', sans-serif;
+  font-size: calc(2.1 * var(--u));
+  line-height: 1.3;
+}
+
+/* ============ Section indicator (right side dots) ============ */
+
+.indicator {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.indicator button {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 2px solid var(--yellow-color);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: height 0.4s ease, background 0.4s ease;
+}
+
+.indicator button.active {
+  height: 32px;
+  background: var(--yellow-color);
+}
+
+/* ============ Entrance animations (replay on every visit) ============ */
+
+.work.active h1 {
+  animation: reveal-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.work.active h2 {
+  animation: reveal-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.65s both;
+}
+
+.work.active ul,
+.work.active footer {
+  animation: fade-up 0.8s ease-out 0.8s both;
+}
+
+@keyframes reveal-left {
+  from { clip-path: inset(-0.2em 100% -0.2em -0.2em); }
+  to   { clip-path: inset(-0.2em); }
+}
+
+@keyframes reveal-right {
+  from { clip-path: inset(-0.2em -0.2em -0.2em 100%); }
+  to   { clip-path: inset(-0.2em); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(2rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { transition: none; }
+
+  .work.active h1,
+  .work.active h2,
+  .work.active ul,
+  .work.active footer {
+    animation: none;
+  }
+}
+
+@keyframes reveal-left {
+  from { clip-path: inset(-1em 100% -1em -1em); }
+  to   { clip-path: inset(-1em); }
+}
+
+@keyframes reveal-right {
+  from { clip-path: inset(-1em -1em -1em 100%); }
+  to   { clip-path: inset(-1em); }
+}
+
+/* ============ MOBILE (keep this LAST in the file) ============ */
+
+@media (min-width: 300px) and (max-width: 1024px) and (orientation: portrait) {
+  .work {
+    /* Limited by width, or by height on short phones */
+    --u: min(1vw, 0.5vh);
+    --bar-h: calc(17.5 * var(--u));
+    --bars-top: calc(19 * var(--u));
+    --bars-gap: calc(7 * var(--u));
+
+    padding: 0;
+  }
+
+  /* Titles centered inside their bars */
+  .heading { text-align: center; }
+
+  h1 {
+    font-size: calc(9 * var(--u));
+    transform: none;
+  }
+
+  h2 { font-size: calc(6.5 * var(--u)); }
+
+  /* Wider right margin keeps the text clear of the indicator dots */
+  ul {
+    margin: calc(5 * var(--u)) calc(9 * var(--u)) 0 calc(6 * var(--u));
+    padding-left: calc(5 * var(--u));
+    max-width: none;
+    font-size: calc(3.6 * var(--u));
+    line-height: 1.5;
+  }
+
+  /* Tags in a 2x2 grid, CTA centered below */
+  footer {
+    left: calc(5 * var(--u));
+    right: calc(5 * var(--u));
+    bottom: calc(6 * var(--u));
+    flex-direction: column;
+    gap: calc(5 * var(--u));
+  }
+
+  .tags {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(3 * var(--u));
+    width: 100%;
+  }
+
+  .tag {
+    padding: calc(2.5 * var(--u)) 0;
+    font-size: calc(4.6 * var(--u));
+    text-align: center;
+  }
+
+  /* Plain px: --u doesn't exist outside .work */
+  .indicator {
+    right: 6px;
+    gap: 10px;
+  }
+}
